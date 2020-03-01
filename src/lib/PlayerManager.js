@@ -182,7 +182,7 @@ class PlayerManager extends Collection {
      * @private
      */
     async voiceServerUpdate(data) {
-        const guild = this.client.guilds.get(data.guild_id);
+        const guild = this.client.guilds.cache.get(data.guild_id);
         if (!guild) return;
         const player = this.get(data.guild_id);
         if (!player) return;
@@ -226,7 +226,7 @@ class PlayerManager extends Collection {
      * @private
      */
     sendWS(data) {
-        return typeof this.client.ws.send === "function" ? this.client.ws.send(data) : this.client.guilds.get(data.d.guild_id).shard.send(data);
+        return typeof this.client.ws.send === "function" ? this.client.ws.send(data) : this.client.guilds.cache.get(data.d.guild_id).shard.send(data);
     }
 
     static get [Symbol.species]() {
